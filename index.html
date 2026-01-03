@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="VAE_LF_Compression">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VAE_LF_Compression</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css"/>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://realistic3d-miun.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://realistic3d-miun.github.io/Research/LFSphereNet/LFSphereNet.html">
+            LFSphereNet
+          </a>
+          <a class="navbar-item" href="https://realistic3d-miun.github.io/Research/SLFDB/SLFDB.html">
+            SLFDB
+          </a>
+          <a class="navbar-item" href="https://realistic3d-miun.github.io/Research/VISTA_Q_ToolKit/index.html">
+            VISTA-Q-ToolKit
+          </a>
+          <a class="navbar-item" href="https://realistic3d-miun.github.io/Research/RT_MPINet/index.html">
+            RT-MPINet
+          </a>
+          <a class="navbar-item" href="https://realistic3d-miun.github.io/PVSNet">
+            PVSNet
+          </a>
+          <a class="navbar-item" href="https://realistic3d-miun.github.io/PVSDNet">
+            PVSDNet
+          </a>
+          <a class="navbar-item" href="https://realistic3d-miun.github.io/DUALF-D">
+            DUALF-D
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">DUALF-D: Disentangled dual-hyperprior approach for light field image compression</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=7kJHUk8AAAAJ&hl=en">Soheib Takhtardeshir</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=wd32zLMAAAAJ&hl=en">Roger Olsson</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=dbKaezwAAAAJ&hl=en">Christine Guillemot</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=EEMg1vMAAAAJ&hl=en">Mårten Sjöström</a><sup>1</sup>,
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Mid Sweden University, Department of Computer and Electrical Engineering, Sundsvall, Sweden</span>
+            <span class="author-block"><sup>2</sup>INRIA, Rennes, France</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (coming soon)</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data (coming soon)</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/Bikes_ours.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">VAE_LF_COMPRESSION
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Light field (LF) imaging captures spatial and angular information, offering a 4D scene representation enabling
+enhanced visual understanding. However, high dimensionality and redundancy across spatial and angular
+domains present major challenges for compression, particularly where storage, transmission bandwidth, or
+processing latency are constrained. We present a novel Variational Autoencoder (VAE)-based framework
+that explicitly disentangles spatial and angular features using two parallel latent branches. Each branch is
+coupled with an independent hyperprior model, allowing more precise distribution estimation for entropy
+coding and finer rate–distortion control. This dual-hyperprior structure enables the network to adaptively
+compress spatial and angular information based on their unique statistical characteristics, improving coding
+efficiency. To further enhance latent feature specialization and promote disentanglement, we introduce a
+mutual information-based regularization term that minimizes redundancy between the two branches while
+preserving feature diversity. Unlike prior methods relying on covariance-based penalties prone to collapse, our
+information-theoretic regularizer provides more stable and interpretable latent separation. Experimental results
+on publicly available LF datasets demonstrate our method achieves strong compression performance, yielding
+an average BD-PSNR gain of 2.91 dB over HEVC and high compression ratios (e.g., 200:1). Additionally, our
+design enables fast inference, with a total end-to-end time over 19x faster than the JPEG Pleno standard,
+making it well-suited for real-time and bandwidth-sensitive applications. By jointly leveraging disentangled
+representation learning, dual-hyperprior modeling, and information-theoretic regularization, our approach
+offers a scalable, effective solution for practical light field image compression.
+          </p>
+      <img src="./static/images/Network_design.png"
+      class="interpolation-image"/>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Rate-Distortion (RD) Graph</h2>
+        <p>Rate-Distortion (RD) curve comparing the performance of our proposed VAE-based light field compression
+          method against HEVC, RLVC, HLVC, JPEG-Pleno, and Shi’s method . Our method consistently outperforms
+          the others across most datasets in terms of compression efficiency and image reconstruction quality, except for Shi’s
+          method, which shows superior results on a few specific datasets.</p>
+        <img src="./static/images/RD_curve_combined.png" alt="Encoding and Decoding Time Comparison">
+      </div>
+    </div>
+    <!-- FPS Rate. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Disparity map comparisons and error distributions </h2>
+        <p>Disparity map comparisons and error distributions for two EPFL scenes for four methods: RLVC, HEVC, JPEG-Pleno, and our proposed approach</p>
+        <img src="./static/images/psnr_vs_execution_and_decoding_time_new.png" alt="Encoding and Decoding Time Comparison">
+      </div>
+    </div>
+    
+    <!--- /FPS Rate  --->
+  </div>
+</section>
+
+<div class="columns is-centered is-vcentered" style="justify-content: center; text-align: center;">
+  <div class="column is-narrow">
+      <label for="bitrateSlider">Select Bit Rate:</label>
+      <input type="range" id="bitrateSlider" min="1" max="4" value="1" step="1" oninput="updateBitrateValue(this.value); updateImages(this.value)">
+      <span id="bitrateValue">0.1</span>
+  </div>
+</div>
+
+<script>
+  function updateBitrateValue(value) {
+    // Map slider values to corresponding bitrates
+    const bitrates = {
+      1: 0.1,
+      2: 0.2,
+      3: 0.3,
+      4: 0.4
+    };
+    document.getElementById("bitrateValue").textContent = bitrates[value];
+  }
+</script>
+
+<!-- Visual Effects and Matting in Two Columns Per Row. -->
+<div class="columns is-centered" style="justify-content: center;">
+  <!-- First Image Block - Bikes -->
+  <div class="column is-narrow">
+      <div class="content" style="text-align: center;">
+          <p>Bikes</p>
+          <div class="image-comparison-wrapper" style="position: relative; margin: 0 auto; width: 624px; height: 432px;">
+              <img-comparison-slider style="width: 100%; height: 100%;">
+                  <img id="bikesOurs" slot="first" src="./static/images/ours1_bit1.png" />
+                  <img id="bikesGT" slot="second" src="./static/images/gt1_bit1.png" />
+              </img-comparison-slider>
+              <span class="image-label" style="position: absolute; top: 10px; left: 10px; color: white; background: rgba(0, 0, 0, 0.5); padding: 2px 5px;">Ours</span>
+              <span class="image-label" style="position: absolute; top: 10px; right: 10px; color: white; background: rgba(0, 0, 0, 0.5); padding: 2px 5px;">Jpeg-Pleno</span>
+          </div>
+      </div>
+  </div>
+
+  <!-- Second Image Block - Bikes (Repeating) -->
+  <div class="column is-narrow">
+      <div class="content" style="text-align: center;">
+          <p>Danger</p>
+          <div class="image-comparison-wrapper" style="position: relative; margin: 0 auto; width: 624px; height: 432px;">
+              <img-comparison-slider style="width: 100%; height: 100%;">
+                  <img id="dangerOurs" slot="first" src="./static/images/ours2_bit1.png" />
+                  <img id="dangerGT" slot="second" src="./static/images/gt2_bit1.png" />
+              </img-comparison-slider>
+              <span class="image-label" style="position: absolute; top: 10px; left: 10px; color: white; background: rgba(0, 0, 0, 0.5); padding: 2px 5px;">Ours</span>
+              <span class="image-label" style="position: absolute; top: 10px; right: 10px; color: white; background: rgba(0, 0, 0, 0.5); padding: 2px 5px;">Jpeg-Pleno</span>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="columns is-centered" style="justify-content: center;">
+  <!-- First Image Block - Danger -->
+  <div class="column is-narrow">
+      <div class="content" style="text-align: center;">
+          <p>Fountain</p>
+          <div class="image-comparison-wrapper" style="position: relative; margin: 0 auto; width: 624px; height: 432px;">
+              <img-comparison-slider style="width: 100%; height: 100%;">
+                  <img id="fountainOurs" slot="first" src="./static/images/ours3_bit1.png" />
+                  <img id="fountainGT" slot="second" src="./static/images/gt3_bit1.png" />
+              </img-comparison-slider>
+              <span class="image-label" style="position: absolute; top: 10px; left: 10px; color: white; background: rgba(0, 0, 0, 0.5); padding: 2px 5px;">Ours</span>
+              <span class="image-label" style="position: absolute; top: 10px; right: 10px; color: white; background: rgba(0, 0, 0, 0.5); padding: 2px 5px;">Jpeg-Pleno</span>
+          </div>
+      </div>
+  </div>
+
+  <!-- Second Image Block - Danger (Repeating) -->
+  <div class="column is-narrow">
+      <div class="content" style="text-align: center;">
+          <p>Pillars</p>
+          <div class="image-comparison-wrapper" style="position: relative; margin: 0 auto; width: 624px; height: 432px;">
+              <img-comparison-slider style="width: 100%; height: 100%;">
+                  <img id="pillarsOurs" slot="first" src="./static/images/ours4_bit1.png" />
+                  <img id="pillarsGT" slot="second" src="./static/images/gt4_bit1.png" />
+              </img-comparison-slider>
+              <span class="image-label" style="position: absolute; top: 10px; left: 10px; color: white; background: rgba(0, 0, 0, 0.5); padding: 2px 5px;">Ours</span>
+              <span class="image-label" style="position: absolute; top: 10px; right: 10px; color: white; background: rgba(0, 0, 0, 0.5); padding: 2px 5px;">Jpeg-Pleno</span>
+          </div>
+      </div>
+  </div>
+</div>
+
+         
+        <!-- More columns for Fountain and Pillars as in your original code -->
+
+
+    
+    <style>
+      .video-row-wrapper {
+        padding-bottom: 50px; /* Space between each row of videos */
+      }
+    
+      .video-row {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
+    </style>
+    
+    <div class="columns is-centered">
+      <div class="column is-full-width has-text-centered">
+        <h2 class="title is-3">Reconstructed views</h2>
+    
+        <!-- Comparison. -->
+        <h3 class="title is-4">3x3 moving across views for reconstructed LFs</h3>
+        <div class="content">
+          <img src="./static/images/webpage_3x3.drawio.png" alt="Encoding and Decoding Time Comparison" style="width: 150px; height: auto; max-width: none;">
+        </div>
+    
+        <!-- First row of videos, wrapped for spacing -->
+        <div class="video-row-wrapper">
+          <div class="content has-text-centered video-row">
+            <div class="image-comparison-wrapper" style="position: relative; width:400px; height: 300px;">
+              <p>Jpeg-Pleno</p>
+              <video poster="" id="epfl_fence" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/fountain_Jpeg.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="image-comparison-wrapper" style="position: relative; width:400px; height: 300px;">
+              <p>Ours</p>
+              <video poster="" id="epfl_fence" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/fountain_ours.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="image-comparison-wrapper" style="position: relative; width:400px; height: 300px;">
+              <p>RLVC</p>
+              <video poster="" id="epfl_fence" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/fountain_RLVC.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Second row of videos, wrapped for spacing -->
+        <div class="video-row-wrapper">
+          <div class="content has-text-centered video-row">
+            <div class="image-comparison-wrapper" style="position: relative; width:400px; height: 300px;">
+              <video poster="" id="epfl_fence" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/Bikes_Jpeg.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="image-comparison-wrapper" style="position: relative; width:400px; height: 300px;">
+              <video poster="" id="epfl_fence" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/Bikes_ours.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="image-comparison-wrapper" style="position: relative; width:400px; height: 300px;">
+              <video poster="" id="epfl_fence" autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/Bikes_RLVC.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="title is-4 has-text-centered">3D viewing by eye crossing Left and Right views</h3>
+    <div class="content has-text-centered">
+      <img src="./static/images/3d_eyecross.drawio.png" alt="Encoding and Decoding Time Comparison" style="width: 150px; height: auto; max-width: none;">
+    </div>
+    
+    <!-- First pair of images (Ours) -->
+    <h4 class="title is-5 has-text-centered">Ours</h4>
+    <div class="content has-text-centered" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 30px;">
+      <div class="image-wrapper">
+        <img src="./static/images/Left_ours.png" alt="Left Ours" style="width: 624px; height: auto; max-width: none;">
+      </div>
+      <div class="image-wrapper">
+        <img src="./static/images/Right_ours.png" alt="Right Ours" style="width: 624px; height: auto; max-width: none;">
+      </div>
+    </div>
+    
+    <!-- Second pair of images (AdaMPI) -->
+    <h4 class="title is-5 has-text-centered">Jpeg-Pleno</h4>
+    <div class="content has-text-centered" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 30px;">
+      <div class="image-wrapper">
+        <img src="./static/images/left_jpeg.png" alt="Left AdaMPI" style="width: 624px; height: auto; max-width: none;">
+      </div>
+      <div class="image-wrapper">
+        <img src="./static/images/right_jpeg.png" alt="Right AdaMPI" style="width: 624px; height: auto; max-width: none;">
+      </div>
+    </div>
+    
+    <!-- Third pair of images (SinMPI) -->
+    <h4 class="title is-5 has-text-centered">RLVC</h4>
+    <div class="content has-text-centered" style="display: flex; gap: 20px; justify-content: center; margin-bottom: 30px;">
+      <div class="image-wrapper">
+        <img src="./static/images/left_RLVC.png" alt="Left SinMPI" style="width: 624px; height: auto; max-width: none;">
+      </div>
+      <div class="image-wrapper">
+        <img src="./static/images/right_RLVC.png" alt="Right SinMPI" style="width: 624px; height: auto; max-width: none;">
+      </div>
+    </div>
+    
+
+
+
+
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{Soheib2024LFdeepcoder,
+  author    = {Takhtardeshir, Soheib and Olsson, Rogor and Guillemot, Christine and Sjöström, Mårten},
+  title     = {Efficient and Fast Light Field Compression via VAE-Based Spatial and Angular Disentanglement},
+  journal   = {Electronic Imaging},
+  year      = {2024},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            We thank authors of Nerfies for opensourcing their website template. Link to their: <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+<script>
+  function updateImages(bitrate) {
+    // Update image sources based on selected bitrate
+    document.getElementById('bikesOurs').src = `./static/images/ours1_bit${bitrate}.png?${new Date().getTime()}`;
+    document.getElementById('bikesGT').src = `./static/images/gt1_bit${bitrate}.png?${new Date().getTime()}`;
+ 
+    document.getElementById('dangerOurs').src = `./static/images/ours2_bit${bitrate}.png?${new Date().getTime()}`;
+    document.getElementById('dangerGT').src = `./static/images/gt2_bit${bitrate}.png?${new Date().getTime()}`;
+ 
+    // Add similar lines for Fountain and Pillars images
+    document.getElementById('fountainOurs').src = `./static/images/ours3_bit${bitrate}.png?${new Date().getTime()}`;
+    document.getElementById('fountainGT').src = `./static/images/gt3_bit${bitrate}.png?${new Date().getTime()}`;
+ 
+    document.getElementById('pillarsOurs').src = `./static/images/ours4_bit${bitrate}.png?${new Date().getTime()}`;
+    document.getElementById('pillarsGT').src = `./static/images/gt4_bit${bitrate}.png?${new Date().getTime()}`;
+  }
+</script>
+
+</html>
